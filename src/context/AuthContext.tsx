@@ -147,7 +147,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Authenticate staff in Firebase Auth to resolve security rules
       try {
         await signInWithEmailAndPassword(auth, lowerEmail, password);
-      } catch (authError: any) {
+      } catch {
         // Auto-register staff if not provisioned in current Auth directory
         try {
           await createUserWithEmailAndPassword(auth, lowerEmail, password);
@@ -206,7 +206,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Authenticate staff in Firebase Auth to resolve security rules
       try {
         await signInWithEmailAndPassword(auth, lowerEmail, password);
-      } catch (authError: any) {
+      } catch {
         // Auto-register staff if not provisioned in current Auth directory
         try {
           await createUserWithEmailAndPassword(auth, lowerEmail, password);

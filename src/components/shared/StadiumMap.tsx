@@ -414,8 +414,9 @@ export const StadiumMap: React.FC = () => {
 
           <div className="space-y-3.5">
             <div>
-              <label className="text-[9px] uppercase font-black text-gray-500 block mb-1">Entrance Gate</label>
+              <label htmlFor="gate-start-select" className="text-[9px] uppercase font-black text-gray-500 block mb-1">Entrance Gate</label>
               <select
+                id="gate-start-select"
                 value={startPoint}
                 onChange={e => {
                   setStartPoint(e.target.value);
@@ -428,8 +429,9 @@ export const StadiumMap: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-[9px] uppercase font-black text-gray-500 block mb-1">Target Seating Section</label>
+              <label htmlFor="target-end-select" className="text-[9px] uppercase font-black text-gray-500 block mb-1">Target Seating Section</label>
               <select
+                id="target-end-select"
                 value={endPoint}
                 onChange={e => {
                   setEndPoint(e.target.value);

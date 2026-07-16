@@ -19,7 +19,6 @@ import {
   LogOut,
   Menu,
   X,
-  AlertOctagon,
   AlertTriangle
 } from 'lucide-react';
 
@@ -58,7 +57,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeSection, setActi
   const [notifOpen, setNotifOpen] = useState(false);
   const [sosModalOpen, setSosModalOpen] = useState(false);
   const [sosSending, setSosSending] = useState(false);
-  const [sosSuccess, setSosSuccess] = useState(false);
+  const [_sosSuccess, setSosSuccess] = useState(false);
   
   // Real-time SOS Emergency modal alert trigger for operational staff
   const [activeSos, setActiveSos] = useState<NotificationMessage | null>(null);

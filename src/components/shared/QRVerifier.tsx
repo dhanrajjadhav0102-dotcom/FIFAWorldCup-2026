@@ -74,9 +74,10 @@ export const QRVerifier: React.FC = () => {
       </div>
 
       <div className="space-y-3">
-        <label className="text-[10px] font-bold uppercase text-gray-400 block">Select active Ticket QR for Verification Preview</label>
+        <label htmlFor="verify-ticket-select" className="text-[10px] font-bold uppercase text-gray-400 block">Select active Ticket QR for Verification Preview</label>
         <div className="flex space-x-2">
           <select
+            id="verify-ticket-select"
             value={selectedTicketId}
             onChange={e => {
               setSelectedTicketId(e.target.value);

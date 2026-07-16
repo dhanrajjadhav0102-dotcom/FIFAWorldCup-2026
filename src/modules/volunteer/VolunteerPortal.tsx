@@ -243,8 +243,9 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ activeSection 
               <form onSubmit={handleReportIncident} className="space-y-4 text-left">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Category</label>
+                    <label htmlFor="incident-category-select" className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Category</label>
                     <select
+                      id="incident-category-select"
                       value={incCategory}
                       onChange={e => setIncCategory(e.target.value as any)}
                       className="bg-fifa-dark border border-gray-700/60 rounded-lg text-xs px-3.5 py-2.5 text-white focus:outline-none focus:border-fifa-gold"
@@ -258,8 +259,9 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ activeSection 
                   </div>
 
                   <div className="flex flex-col space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Severity Rating</label>
+                    <label htmlFor="incident-severity-select" className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Severity Rating</label>
                     <select
+                      id="incident-severity-select"
                       value={incSeverity}
                       onChange={e => setIncSeverity(e.target.value as any)}
                       className="bg-fifa-dark border border-gray-700/60 rounded-lg text-xs px-3.5 py-2.5 text-white focus:outline-none focus:border-fifa-gold"
@@ -281,8 +283,9 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ activeSection 
                 />
 
                 <div className="flex flex-col space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Incident Details</label>
+                  <label htmlFor="incident-details-area" className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Incident Details</label>
                   <textarea
+                    id="incident-details-area"
                     rows={4}
                     value={incDesc}
                     onChange={e => setIncDesc(e.target.value)}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, Send, X, Bot, User, HelpCircle } from 'lucide-react';
-import { Button } from '../ui/Primitives';
+import { Send, X, Bot, User, HelpCircle } from 'lucide-react';
+
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
 

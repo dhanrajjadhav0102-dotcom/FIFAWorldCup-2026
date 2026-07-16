@@ -840,8 +840,9 @@ export const FanPortal: React.FC<FanPortalProps> = ({ activeSection }) => {
                   </div>
 
                   <div className="flex flex-col space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Comments</label>
+                    <label htmlFor="feedback-comments-area" className="text-xs font-bold uppercase tracking-wider text-fifa-gold-light">Comments</label>
                     <textarea
+                      id="feedback-comments-area"
                       rows={4}
                       value={feedbackComment}
                       onChange={e => setFeedbackComment(e.target.value)}

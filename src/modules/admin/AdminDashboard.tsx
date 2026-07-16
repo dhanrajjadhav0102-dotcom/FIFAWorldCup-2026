@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAppData } from '../../context/AppContext';
-import { Match, Incident, VolunteerShift, User, NotificationMessage } from '../../services/db';
+import { Match, VolunteerShift, User, NotificationMessage } from '../../services/db';
 import { Button, Card, Badge, Input, Modal } from '../../components/ui/Primitives';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area
 } from 'recharts';
 import {
-  BarChart2, Users, ShieldAlert, PlusCircle, Bell, Edit, Plus, AlertOctagon, TrendingUp, Coins, Calendar, Check, Play, UserCheck
+  BarChart2, Users, ShieldAlert, PlusCircle, Bell, Edit, Coins, Calendar, UserCheck
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -410,8 +410,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
                     required
                   />
                   <div className="flex flex-col space-y-1">
-                    <label className="text-xs font-bold uppercase text-fifa-gold-light">Description</label>
+                    <label htmlFor="shift-desc-area" className="text-xs font-bold uppercase text-fifa-gold-light">Description</label>
                     <textarea
+                      id="shift-desc-area"
                       rows={3}
                       value={newShiftDesc}
                       onChange={e => setNewShiftDesc(e.target.value)}
@@ -530,6 +531,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
                           ) : dispatchingIncidentId === inc.id ? (
                             <div className="flex space-x-1.5">
                               <select
+                                aria-label="Assign volunteer to incident"
                                 value={selectedVolunteerId}
                                 onChange={e => setSelectedVolunteerId(e.target.value)}
                                 className="bg-fifa-dark border border-gray-700 text-[10px] rounded px-1 py-0.5 focus:outline-none"
@@ -609,8 +611,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
                   />
 
                   <div className="flex flex-col space-y-1">
-                    <label className="text-xs font-bold uppercase text-fifa-gold-light">Alert Body details</label>
+                    <label htmlFor="broadcast-body-area" className="text-xs font-bold uppercase text-fifa-gold-light">Alert Body details</label>
                     <textarea
+                      id="broadcast-body-area"
                       rows={4}
                       value={alertContent}
                       onChange={e => setAlertContent(e.target.value)}
@@ -622,8 +625,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col space-y-1">
-                      <label className="text-xs font-bold uppercase text-fifa-gold-light">Type / Severity</label>
+                      <label htmlFor="broadcast-severity-select" className="text-xs font-bold uppercase text-fifa-gold-light">Type / Severity</label>
                       <select
+                        id="broadcast-severity-select"
                         value={alertType}
                         onChange={e => setAlertType(e.target.value as any)}
                         className="bg-fifa-dark border border-gray-700 rounded px-2.5 py-2 text-xs"
@@ -635,8 +639,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
                     </div>
 
                     <div className="flex flex-col space-y-1">
-                      <label className="text-xs font-bold uppercase text-fifa-gold-light">Target Audience</label>
+                      <label htmlFor="broadcast-target-select" className="text-xs font-bold uppercase text-fifa-gold-light">Target Audience</label>
                       <select
+                        id="broadcast-target-select"
                         value={alertTarget}
                         onChange={e => setAlertTarget(e.target.value as any)}
                         className="bg-fifa-dark border border-gray-700 rounded px-2.5 py-2 text-xs"
@@ -787,8 +792,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
                 onChange={e => setEditMinute(Number(e.target.value))}
               />
               <div className="flex flex-col space-y-1.5">
-                <label className="text-xs font-bold uppercase text-fifa-gold-light">Match Status</label>
+                <label htmlFor="match-status-select" className="text-xs font-bold uppercase text-fifa-gold-light">Match Status</label>
                 <select
+                  id="match-status-select"
                   value={editStatus}
                   onChange={e => setEditStatus(e.target.value as any)}
                   className="bg-fifa-dark border border-gray-700 rounded px-2.5 py-2 text-xs"
@@ -856,8 +862,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ activeSection })
               <Input label="Date" type="date" value={newMatchDate} onChange={e => setNewMatchDate(e.target.value)} required />
               <Input label="Time" type="time" value={newMatchTime} onChange={e => setNewMatchTime(e.target.value)} required />
               <div className="flex flex-col space-y-1 w-full">
-                <label className="text-[10px] uppercase font-bold text-fifa-gold-light block">Group Stage</label>
+                <label htmlFor="match-group-select" className="text-[10px] uppercase font-bold text-fifa-gold-light block">Group Stage</label>
                 <select
+                  id="match-group-select"
                   value={newMatchGroup}
                   onChange={e => setNewMatchGroup(e.target.value)}
                   className="bg-fifa-dark border border-gray-700/60 rounded text-xs px-2.5 py-2.5 focus:outline-none"

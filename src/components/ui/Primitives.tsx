@@ -73,11 +73,21 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-export const Input: React.FC<InputProps> = ({ label, error, className = '', ...props }) => {
+export const Input: React.FC<InputProps> = ({ label, error, className = '', id, ...props }) => {
+  const generatedId = React.useId();
+  const inputId = id || generatedId;
   return (
     <div className="flex flex-col space-y-1.5 w-full">
-      {label && <label className="text-xs font-semibold uppercase tracking-wider text-fifa-gold-light">{label}</label>}
+      {label && (
+        <label 
+          htmlFor={inputId} 
+          className="text-xs font-semibold uppercase tracking-wider text-fifa-gold-light"
+        >
+          {label}
+        </label>
+      )}
       <input
+        id={inputId}
         className={`bg-fifa-cardDark border border-gray-700/60 rounded-lg text-sm px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-fifa-gold transition-colors duration-200 ${error ? 'border-red-500 focus:border-red-500' : ''} ${className}`}
         {...props}
       />

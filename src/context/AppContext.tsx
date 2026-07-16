@@ -9,7 +9,6 @@ import {
   doc,
   addDoc,
   setDoc,
-  getDocs,
   query,
   where,
   updateDoc,
@@ -288,7 +287,7 @@ export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({ child
               console.log(`Live timer: Tick match ${m.homeTeam} vs ${m.awayTeam} to ${currentMin + 1}'`);
             }
           }
-        } catch (err) {
+        } catch {
           // Ignore parser issues for user-created custom dates
         }
       });
@@ -489,7 +488,7 @@ export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({ child
     };
 
     try {
-      const docRef = await addDoc(collection(firestore, 'lostfound'), lfDoc);
+      await addDoc(collection(firestore, 'lostfound'), lfDoc);
       
       await addDoc(collection(firestore, 'activities'), {
         uid: activeUid,
