@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useAppData } from '../../context/AppContext';
-import { useAuth } from '../../context/AuthContext';
-import { Match, Ticket, FoodItem, MerchandiseItem, Order, LostFoundItem } from '../../services/db';
+import { Match, Ticket, FoodItem, MerchandiseItem } from '../../services/db';
 import { Button, Card, Badge, Input, Modal } from '../../components/ui/Primitives';
 import { SeatMap } from '../../components/shared/SeatMap';
 import { StadiumMap } from '../../components/shared/StadiumMap';
 import {
   Calendar, Ticket as TktIcon, Coffee, ShoppingBag, MapPin, HelpCircle, MessageSquare,
-  ChevronRight, ShoppingCart, Trash2, QrCode, Plus, Minus, Send, Star, AlertTriangle, AlertCircle
+  ChevronRight, ShoppingCart, QrCode, Plus, Minus, Star
 } from 'lucide-react';
 
 interface FanPortalProps {
@@ -15,7 +14,6 @@ interface FanPortalProps {
 }
 
 export const FanPortal: React.FC<FanPortalProps> = ({ activeSection }) => {
-  const { currentUser } = useAuth();
   const {
     matches, tickets, foodItems, merchandise, orders, lostFoundItems, feedback,
     buyTicket, placeOrder, reportLostFound, submitFeedback

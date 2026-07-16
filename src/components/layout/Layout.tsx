@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
 import { Badge, Button } from '../ui/Primitives';
-import { NotificationMessage, UserRole } from '../../services/db';
+import { NotificationMessage } from '../../services/db';
 import {
   Calendar,
   Ticket,

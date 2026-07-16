@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import App from '../App';
 import { AuthProvider } from '../context/AuthContext';
@@ -41,7 +41,7 @@ describe('Operations Portal - Guest Tests', () => {
     const openBtn = screen.getByRole('button', { name: /explore stadium map/i });
     fireEvent.click(openBtn);
     
-    expect(screen.getByText(/log in to get full access to all stadium features/i)).toBeInTheDocument();
+    expect(await screen.findByText(/log in to get full access to all stadium features/i)).toBeInTheDocument();
     
     // Close guest map and redirect to sign in
     const redirectBtn = screen.getByRole('button', { name: /^log in$/i });
@@ -75,7 +75,7 @@ describe('Operations Portal - Authenticated Fan Dashboard Workflows', () => {
     renderApp();
     
     // Header check
-    expect(screen.getByText('Dhanraj Fan')).toBeInTheDocument();
+    expect(await screen.findByText('Dhanraj Fan')).toBeInTheDocument();
     expect(screen.getByText(/operations hub/i)).toBeInTheDocument();
     
     // Check navigation buttons for fan view
@@ -87,11 +87,14 @@ describe('Operations Portal - Authenticated Fan Dashboard Workflows', () => {
   it('can navigate between dashboard pages and execute ticket booking flow', async () => {
     renderApp();
     
+    // Wait for app load
+    expect(await screen.findByText('Dhanraj Fan')).toBeInTheDocument();
+    
     // Go to My Tickets section
     const ticketsNavBtn = screen.getByRole('button', { name: /my tickets/i });
     fireEvent.click(ticketsNavBtn);
     
-    expect(screen.getByText(/ticket wallet & interactive booking/i)).toBeInTheDocument();
+    expect(await screen.findByText(/ticket wallet & interactive booking/i)).toBeInTheDocument();
     expect(screen.getByText(/active entry tickets/i)).toBeInTheDocument();
     
     // Open Quick Reservation modal
@@ -102,11 +105,14 @@ describe('Operations Portal - Authenticated Fan Dashboard Workflows', () => {
   it('can navigate and execute concession food ordering workflow', async () => {
     renderApp();
     
+    // Wait for app load
+    expect(await screen.findByText('Dhanraj Fan')).toBeInTheDocument();
+    
     // Go to Food Ordering section
     const foodNavBtn = screen.getByRole('button', { name: /food ordering/i });
     fireEvent.click(foodNavBtn);
     
-    expect(screen.getByText(/food & beverage delivery service/i)).toBeInTheDocument();
+    expect(await screen.findByText(/food & beverage delivery service/i)).toBeInTheDocument();
     expect(screen.getByText(/stadium concession menu/i)).toBeInTheDocument();
     
     // Add item to basket
@@ -139,9 +145,9 @@ describe('Operations Portal - Authenticated Volunteer Workflows', () => {
     });
   });
 
-  it('loads volunteer workspace and duty shift modules', () => {
+  it('loads volunteer workspace and duty shift modules', async () => {
     renderApp();
-    expect(screen.getByText('Dhanraj Volunteer')).toBeInTheDocument();
+    expect(await screen.findByText('Dhanraj Volunteer')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /duty shifts/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /report incident/i })).toBeInTheDocument();
   });
@@ -160,9 +166,9 @@ describe('Operations Portal - Authenticated Organizer/Admin Workflows', () => {
     });
   });
 
-  it('loads administrator workspace and analytics console', () => {
+  it('loads administrator workspace and analytics console', async () => {
     renderApp();
-    expect(screen.getByText('Dhanraj Organizer')).toBeInTheDocument();
+    expect(await screen.findByText('Dhanraj Organizer')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /analytics panel/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /volunteer control/i })).toBeInTheDocument();
   });

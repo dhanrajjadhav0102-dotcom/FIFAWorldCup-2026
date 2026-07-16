@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from '../ui/Primitives';
 
 interface SeatMapProps {
   onSelectSeat: (category: 'VIP' | 'Category 1' | 'Category 2' | 'Category 3', seatCode: string, price: number) => void;

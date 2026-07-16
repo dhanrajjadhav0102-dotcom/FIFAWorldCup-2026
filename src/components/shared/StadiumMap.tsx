@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import {
-  MapPin,
   Navigation,
-  Info,
-  ShieldAlert,
-  Award,
-  Coffee,
-  Eye,
   ZoomIn,
   ZoomOut,
   RotateCw,
   RotateCcw,
-  Maximize2,
   RefreshCw,
   Compass,
   ArrowUp,

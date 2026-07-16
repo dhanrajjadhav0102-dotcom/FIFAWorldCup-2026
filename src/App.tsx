@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './context/AuthContext';
 import { Layout } from './components/layout/Layout';
-import { FanPortal } from './modules/fan/FanPortal';
-import { VolunteerPortal } from './modules/volunteer/VolunteerPortal';
-import { AdminDashboard } from './modules/admin/AdminDashboard';
-import { Chatbot } from './components/ai/Chatbot';
-import { StadiumMap } from './components/shared/StadiumMap';
+
+const FanPortal = React.lazy(() => import('./modules/fan/FanPortal').then(m => ({ default: m.FanPortal })));
+const VolunteerPortal = React.lazy(() => import('./modules/volunteer/VolunteerPortal').then(m => ({ default: m.VolunteerPortal })));
+const AdminDashboard = React.lazy(() => import('./modules/admin/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
+const Chatbot = React.lazy(() => import('./components/ai/Chatbot').then(m => ({ default: m.Chatbot })));
+const StadiumMap = React.lazy(() => import('./components/shared/StadiumMap').then(m => ({ default: m.StadiumMap })));
 import { Button, Card, Input, Badge } from './components/ui/Primitives';
 import { UserRole } from './services/db';
-import { Globe, ShieldCheck, User, Users, Lock, AlertCircle, MapPin } from 'lucide-react';
+import { Globe, ShieldCheck, User, Users, AlertCircle, MapPin } from 'lucide-react';
 
 function App() {
   const { currentUser, login, signup, loading } = useAuth();
@@ -167,7 +168,13 @@ function App() {
             </div>
 
             <div className="flex-1">
-              <StadiumMap />
+              <React.Suspense fallback={
+                <div className="w-full h-64 flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-fifa-burgundy border-t-fifa-gold rounded-full animate-spin" />
+                </div>
+              }>
+                <StadiumMap />
+              </React.Suspense>
             </div>
           </main>
 
@@ -448,12 +455,20 @@ function App() {
   // 2. DASHBOARD VIEW WITH STRICT Access Control
   return (
     <Layout activeSection={activeSection} setActiveSection={setActiveSection}>
-      {currentUser.role === 'fan' && <FanPortal activeSection={activeSection} />}
-      {currentUser.role === 'volunteer' && <VolunteerPortal activeSection={activeSection} />}
-      {currentUser.role === 'admin' && <AdminDashboard activeSection={activeSection} />}
+      <React.Suspense fallback={
+        <div className="flex-1 flex items-center justify-center p-12">
+          <div className="w-8 h-8 border-4 border-fifa-burgundy border-t-fifa-gold rounded-full animate-spin" />
+        </div>
+      }>
+        {currentUser.role === 'fan' && <FanPortal activeSection={activeSection} />}
+        {currentUser.role === 'volunteer' && <VolunteerPortal activeSection={activeSection} />}
+        {currentUser.role === 'admin' && <AdminDashboard activeSection={activeSection} />}
+      </React.Suspense>
       
       {/* Floating AI chatbot globally available */}
-      <Chatbot />
+      <React.Suspense fallback={null}>
+        <Chatbot />
+      </React.Suspense>
     </Layout>
   );
 }

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useAppData } from '../../context/AppContext';
-import { useAuth } from '../../context/AuthContext';
-import { Button, Card, Badge } from '../ui/Primitives';
-import { ShieldCheck, ShieldAlert, QrCode, User, CheckCircle } from 'lucide-react';
+import { Button, Card } from '../ui/Primitives';
+import { ShieldAlert, QrCode, CheckCircle } from 'lucide-react';
 
 export const QRVerifier: React.FC = () => {
-  const { tickets, matches, updateIncidentStatus } = useAppData();
-  const { currentUser } = useAuth();
+  const { tickets, matches } = useAppData();
   const [selectedTicketId, setSelectedTicketId] = useState('');
   const [scanResult, setScanResult] = useState<{
     status: 'idle' | 'scanning' | 'success' | 'fraud' | 'not_found';

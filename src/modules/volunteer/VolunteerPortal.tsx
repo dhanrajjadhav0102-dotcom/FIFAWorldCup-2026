@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useAppData } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
-import { Incident, VolunteerShift } from '../../services/db';
+import { VolunteerShift } from '../../services/db';
 import { Button, Card, Badge, Input } from '../../components/ui/Primitives';
 import { StadiumMap } from '../../components/shared/StadiumMap';
 import {
-  Calendar, ShieldAlert, List, MapPin, CheckCircle, Navigation, Clock, FileText, AlertTriangle, Play, HelpCircle
+  Calendar, ShieldAlert, List, MapPin, CheckCircle, Clock, HelpCircle, Play
 } from 'lucide-react';
 
 interface VolunteerPortalProps {
@@ -323,7 +323,6 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ activeSection 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {incidents.filter(i => i.status !== 'resolved').map(inc => {
                 const isClaimedByMe = inc.assignedVolunteerId === currentUser?.id;
-                const isClaimedByOther = inc.assignedVolunteerId && !isClaimedByMe;
 
                 return (
                   <Card key={inc.id} hoverEffect={false} className={`p-4 flex flex-col justify-between border-l-4 ${

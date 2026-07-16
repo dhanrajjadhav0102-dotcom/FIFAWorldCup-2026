@@ -16,7 +16,7 @@ async function bootstrap() {
       config = await response.json();
       console.log("Firebase Hosting auto-configuration detected.", config);
     }
-  } catch (e) {
+  } catch {
     // Normal fallback when running in local development mode
     console.log("Using compiled environment variables for Firebase configuration.");
   }
