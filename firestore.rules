@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if the authenticated client is an operational staff member
+    function isStaff() {
+      return request.auth != null && 
+        request.auth.token.email.matches('.*@fifa\\.com');
+    }
+    
+    // User Profiles
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || isStaff());
+      allow write: if request.auth != null && (request.auth.uid == userId || isStaff());
+    }
+    
+    // User bookings/tickets
+    match /bookings/{bookingId} {
+      allow read: if request.auth != null && 
+        (resource == null || resource.data.uid == request.auth.uid || isStaff());
+      allow write: if request.auth != null && 
+        (request.resource.data.uid == request.auth.uid || isStaff());
+    }
+    
+    // Concessions & Merchandise Orders
+    match /orders/{orderId} {
+      allow read: if request.auth != null && 
+        (resource == null || resource.data.uid == request.auth.uid || isStaff());
+      allow write: if request.auth != null && 
+        (request.resource.data.uid == request.auth.uid || isStaff());
+    }
+    
+    // Fan Feedback reviews
+    match /feedback/{feedbackId} {
+      allow read: if true; // Feedback wall is publicly readable
+      allow write: if request.auth != null && 
+        (request.resource.data.uid == request.auth.uid || isStaff());
+    }
+    
+    // Activity Logs
+    match /activities/{activityId} {
+      allow read: if request.auth != null && 
+        (resource == null || resource.data.uid == request.auth.uid || isStaff());
+      allow write: if request.auth != null && 
+        (request.resource.data.uid == request.auth.uid || isStaff());
+    }
+    
+    // General notifications (broadcast warnings & targeted alerts)
+    match /notifications/{notifId} {
+      allow read: if true; // Announcements can be read
+      allow write: if request.auth != null; // Writes permitted for authenticated dispatches
+    }
+    
+    // Match schedules (managed by Admin)
+    match /matches/{matchId} {
+      allow read: if true;
+      allow write: if request.auth != null; // Writes allowed for verified staff/system schedulers
+    }
+    
+    // Stadiums config
+    match /stadiums/{stadiumId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+    
+    // Volunteer rosters & shifts (created by Admin, signed up by Volunteers)
+    match /shifts/{shiftId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Incidents reports (logged by volunteers, managed by Admin)
+    match /incidents/{incidentId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Lost & Found registry
+    match /lostfound/{itemId} {
+      allow read: if true;
+      allow write: if true; // Allow anyone to submit lost items, claiming checked
+    }
+  }
+}
